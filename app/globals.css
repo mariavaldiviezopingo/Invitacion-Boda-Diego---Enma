@@ -7,6 +7,9 @@
 .cover-art{display:block;width:min(88vw,680px);max-height:76svh;object-fit:contain;margin:0 auto 1.25rem;mix-blend-mode:multiply}
 .cover{min-height:100svh;padding:0;background:#101820;color:#fff}
 .cover-photo{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,19,28,.62),rgba(8,19,28,.42)),linear-gradient(0deg,rgba(8,19,28,.34),rgba(8,19,28,.2)),url('/fotos/DSC00056.jpg') center 42%/cover no-repeat;transform:scale(1.01)}
+.cover-photo1{position:absolute;inset:0;background:url('/fotos/pareja-juntos.jpeg') center 42%/cover no-repeat;transform:scale(1.01)}
+.cover-photo2{position:absolute;inset:0;background:url('/fotos/foto4.jpg') center 42%/cover no-repeat;transform:scale(1.01)}
+
 .cover-content{width:min(100%,980px);display:flex;flex-direction:column;align-items:center;text-shadow:0 2px 18px rgba(0,0,0,.28)}
 .cover-kicker{order:0;margin:0 0 clamp(24px,5vh,56px);font:600 clamp(.68rem,1.4vw,.95rem) 'Cormorant Garamond',serif;letter-spacing:.28em;text-transform:uppercase;color:#fff}
 .cover-initials{order:1;margin:0 0 .5rem;font-size:clamp(3.6rem,8vw,6.3rem);line-height:.9;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.25)}
@@ -287,7 +290,10 @@ main>section{min-width:0}
   grid-template-columns:minmax(0,1fr);
   place-items:center;
   min-height:0;
-  padding:clamp(2rem,6vw,4rem) clamp(1.25rem,6vw,5rem);
+  margin-top:10px!important;
+  padding:clamp(2rem,6vw,4rem) clamp(1.25rem,6vw,5rem)!important;
+  background-color:#eef2f5!important;
+  background-image:none!important;
   text-align:center;
 }
 .date-message{
@@ -297,6 +303,110 @@ main>section{min-width:0}
   font:italic 400 clamp(1.2rem,2.4vw,1.8rem)/1.55 'Cormorant Garamond',serif;
   letter-spacing:.015em;
   text-wrap:balance;
+}
+@media(max-width:640px){
+  .date-band.date-message-band{padding:clamp(1.75rem,8vw,2.5rem) clamp(1.1rem,5vw,1.75rem)!important}
+  .date-message{font-size:clamp(1.15rem,5vw,1.35rem);line-height:1.45}
+}
+main>section.countdown-section{
+  position:relative;
+  isolation:isolate;
+  padding-block:clamp(3.75rem,8vw,6.5rem)!important;
+  background-color:#f5f5f3!important;
+  background-image:none!important;
+  background-attachment:scroll!important;
+  color:var(--ink);
+  transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1);
+}
+.countdown-content{width:min(100%,68rem);margin-inline:auto}
+.countdown-date-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:clamp(.75rem,4vw,2.75rem);
+  width:min(100%,48rem);
+  margin:clamp(2rem,5vw,3rem) auto 0;
+}
+.countdown-date-row .date-side{justify-content:center;font-size:clamp(.7rem,1.6vw,.95rem)}
+.countdown-date-row .date-medallion{
+  width:clamp(88px,14vw,112px);
+  height:clamp(132px,22vw,162px);
+  flex-shrink:0;
+  background:transparent;
+}
+.countdown-date-row .date-medallion strong{font-size:clamp(3.25rem,7vw,4rem)}
+.countdown-panel{margin:100px auto 24px}
+.countdown-quote{color:var(--dusty-dark);font-size:clamp(.95rem,1.8vw,1.1rem)}
+@media(max-width:640px){
+  .countdown-section{padding-inline:1rem}
+  .countdown-date-row{gap:clamp(.55rem,3vw,1rem);margin-top:1.75rem}
+  .countdown-date-row .date-side{font-size:clamp(.58rem,2.5vw,.72rem);letter-spacing:.06em}
+  .countdown-date-row .date-medallion{width:clamp(76px,22vw,90px);height:clamp(118px,34vw,138px)}
+  .countdown-date-row .date-medallion strong{font-size:clamp(2.8rem,12vw,3.3rem)}
+  .countdown-panel{margin-top:clamp(4.5rem,18vw,6.25rem)}
+}
+main>section.couple-photo-section{
+  position:relative;
+  display:block;
+  width:100%;
+  height:clamp(360px,55vw,760px);
+  min-height:0;
+  padding:0;
+  overflow:hidden;
+  isolation:isolate;
+  background-color:#f5f5f3!important;
+  background-image:none!important;
+}
+.couple-photo-background{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 46%;
+}
+.couple-photo-section::before,
+.couple-photo-section::after{
+  position:absolute;
+  z-index:1;
+  right:0;
+  left:0;
+  height:clamp(26px,3.8vw,48px);
+  content:"";
+  background:#f5f5f3;
+  pointer-events:none;
+}
+.couple-photo-section::before{
+  top:0;
+  clip-path:polygon(
+    0 0,100% 0,100% 55%,96% 47%,92% 61%,88% 44%,84% 57%,80% 43%,76% 63%,72% 47%,68% 60%,64% 42%,60% 63%,56% 47%,52% 65%,48% 43%,44% 59%,40% 44%,36% 63%,32% 46%,28% 60%,24% 42%,20% 64%,16% 47%,12% 61%,8% 43%,4% 58%,0 45%
+  );
+}
+.couple-photo-section::after{
+  bottom:0;
+  clip-path:polygon(
+    0 44%,4% 59%,8% 43%,12% 61%,16% 46%,20% 63%,24% 42%,28% 59%,32% 45%,36% 64%,40% 43%,44% 59%,48% 42%,52% 63%,56% 45%,60% 61%,64% 43%,68% 60%,72% 42%,76% 63%,80% 45%,84% 59%,88% 43%,92% 61%,96% 45%,100% 57%,100% 100%,0 100%
+  );
+}
+@media(max-width:640px){
+  main>section.couple-photo-section{height:clamp(340px,88vw,520px)}
+  .couple-photo-background{object-position:center 44%}
+  .couple-photo-section::before,.couple-photo-section::after{height:30px}
+}
+.gift-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);align-items:stretch}
+.gift-grid .gift-account{grid-column:2;display:flex;align-items:center;justify-content:center;gap:clamp(1rem,2.5vw,2rem)}
+.gift-grid .gift-account>div:first-child{flex:1 1 190px;min-width:0}
+.yape-payment{flex:0 1 230px;display:flex;flex-direction:column;align-items:center;gap:.55rem;min-width:0}
+.yape-caption{margin:0;color:var(--dusty-dark);font:500 .72rem 'Montserrat',sans-serif;letter-spacing:.12em;text-align:center;text-transform:uppercase}
+.gift-grid .yape-qr-frame{flex:0 0 auto;width:min(100%,230px);height:auto;aspect-ratio:auto;padding:6px;overflow:hidden;border:1px solid #cbd6df;border-radius:15px;background:#fff;box-shadow:0 8px 20px rgba(53,75,92,.12)}
+.gift-grid .yape-qr-frame img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:10px}
+@media(max-width:760px){
+  .gift-grid{grid-template-columns:minmax(0,1fr);max-width:520px}
+  .gift-grid .gift-account{grid-column:1;flex-direction:column;gap:1.25rem}
+  .yape-payment{flex:0 1 auto;width:min(100%,250px)}
+  .gift-grid .yape-qr-frame{width:min(100%,230px)}
 }
 @media(max-width:640px){
   .story-cover .cover-photo{background-position:44% 48%}

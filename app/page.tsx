@@ -9,7 +9,20 @@ function WaveDivider({ tone = 'paper' }: { tone?: 'paper' | 'white' }) { return 
 export default function Home({ guest }: { guest?: Guest } = {}) {
     const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 }), [active, setActive] = useState<number | null>(null), [response, setResponse] = useState(''), [copied, setCopied] = useState(false);
     useEffect(() => { const tick = () => { const ms = new Date(wedding.date + 'T18:00:00-05:00').getTime() - Date.now(), n = Math.max(0, ms); setTime({ d: Math.floor(n / 86400000), h: Math.floor(n / 3600000) % 24, m: Math.floor(n / 60000) % 60, s: Math.floor(n / 1000) % 60 }) }; tick(); const id = setInterval(tick, 1000); return () => clearInterval(id) }, []);
-    useEffect(() => { const items = document.querySelectorAll<HTMLElement>('[data-reveal], [data-photo]'); if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('is-visible')); return } const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) } }), { threshold: .01 }); items.forEach(el => observer.observe(el)); return () => observer.disconnect() }, []);
+    useEffect(() => {
+        const items = document.querySelectorAll<HTMLElement>('[data-reveal], [data-photo]');
+        if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('is-visible')); return }
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+            const target = entry.target as HTMLElement;
+            if (target.classList.contains('countdown-section')) {
+                target.classList.toggle('is-visible', entry.isIntersecting);
+                return;
+            }
+            if (entry.isIntersecting) { target.classList.add('is-visible'); observer.unobserve(target) }
+        }), { threshold: .01 });
+        items.forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
     const calendar = () => { const url = new URL('https://calendar.google.com/calendar/render'); url.searchParams.set('action', 'TEMPLATE'); url.searchParams.set('text', `${wedding.names.join(' & ')} · Nuestra boda`); url.searchParams.set('dates', `${wedding.calendarStart.replace(/[-:]/g, '').slice(0, 15)}/${wedding.calendarEnd.replace(/[-:]/g, '').slice(0, 15)}`); url.searchParams.set('details', `${wedding.ceremony.title}: ${wedding.ceremony.venue}. ${wedding.reception.title}: ${wedding.reception.venue}.`); window.open(url.toString(), '_blank', 'noopener') };
     async function rsvp(answer: 'yes' | 'no') { const token = location.pathname.split('/').pop(); if (!token || token === '') return; try { const r = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, answer }) }); const j = await r.json(); setResponse(r.ok ? (answer === 'yes' ? '¡Gracias por confirmar!' : 'Gracias por avisarnos.') : (j.error || 'No pudimos guardar tu respuesta.')) } catch { setResponse('No pudimos guardar tu respuesta.') } }
     const eventDate = new Date(`${wedding.date}T12:00:00-05:00`), weekday = eventDate.toLocaleDateString('es-PE', { weekday: 'long' }), day = eventDate.toLocaleDateString('es-PE', { day: '2-digit' }), month = eventDate.toLocaleDateString('es-PE', { month: 'long' }), year = eventDate.getFullYear(), numericDate = eventDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', ' · ');
@@ -33,46 +46,90 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
             </svg>
         </section>
         <section data-reveal style={{
-            marginTop: '10px',
             backgroundColor: 'rgba(220,229,237,.24)'
-        }} className="date-band" aria-label={`Fecha de la boda: ${weekday} ${day} de ${month} de ${year}`}>
-            <p>"Hay alegrías que se multiplican al compartirlas. Hoy celebramos nuestro amor y queremos tenerte cerca en uno de los días más especiales de nuestras vidas."</p>
+        }} className="date-band date-message-band" aria-label="Mensaje para nuestros invitados">
+            <p className="date-message">“Hay alegrías que se multiplican al compartirlas. Hoy celebramos nuestro amor y queremos tenerte cerca en uno de los días más especiales de nuestras vidas.”</p>
         </section>
         <section id="invitacion" data-reveal className="invitation-section max-w-4xl mx-auto px-5 py-20 text-center">
             <svg className="invitation-top-triangle" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440L720 100Z" /></svg>
             <p className="uppercase tracking-[.28em] text-xs text-dusty-700">Una celebración de amor</p>
             <Heart className="mx-auto my-5 text-dusty-500" size={24} />{guest && 
-            <div className="mb-5"><p className="text-xl">¡Hola, {guest.name}!</p>
+            <div className="mb-5"><p className="text-base md:text-lg">¡Hola, {guest.name}!</p>
             <p className="text-sm text-dusty-700 mt-1">Hemos reservado {guest.passes} {guest.passes === 1 ? 'pase' : 'pases'} para ti.</p>
-            </div>}<h2 className="text-3xl md:text-5xl mb-5">Querida familia y amigos</h2>
-            <p className="max-w-xl mx-auto text-lg leading-8">{wedding.welcome}</p>
+            </div>}<h2 className="text-2xl sm:text-3xl md:text-4xl mb-5">Querida familia y amigos</h2>
+            <p className="max-w-xl mx-auto text-base md:text-lg leading-7 md:leading-8">{wedding.welcome}</p>
             <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-10 mt-10">
                 <div>
-                    <h3 className="accent-heading text-5xl mt-3">Padres del novio</h3>{wedding.parents.groom.map(n => <p key={n} className="text-xl mt-3">{n}</p>)}
+                    <h3 className="accent-heading text-3xl md:text-4xl mt-3">Padres del novio</h3>{wedding.parents.groom.map(n => <p key={n} className="text-base md:text-lg mt-3">{n}</p>)}
                 </div>
                 <div>             
-                    <h3 className="accent-heading text-5xl mt-3">Padres de la novia</h3>{wedding.parents.bride.map(n => <p key={n} className="text-xl mt-3">{n}</p>)}
+                    <h3 className="accent-heading text-3xl md:text-4xl mt-3">Padres de la novia</h3>{wedding.parents.bride.map(n => <p key={n} className="text-base md:text-lg mt-3">{n}</p>)}
                 </div>
-                <div className="md:col-span-2">             
-                    <h3 className="accent-heading text-5xl mt-3">Padrinos</h3>{wedding.parents.padrinos.map(n => <p key={n} className="text-xl mt-3">{n}</p>)}
+                <div className="md:col-span-2">
+                    <h3 className="accent-heading text-3xl md:text-4xl mt-3">Padrinos</h3>{wedding.parents.padrinos.map(n => <p key={n} className="text-base md:text-lg mt-3">{n}</p>)}
                 </div>
-            </div>
-            <div className="countdown-panel">
-                <p className="countdown-title">La cuenta regresiva</p>
-                <div className="countdown-grid">{Object.entries(time).map(([k, v]) => <div key={k} className="countdown-item">
-                    <strong>{String(v).padStart(2, '0')}</strong>
-                    <span>{{ d: 'Días', h: 'Horas', m: 'Min.', s: 'Seg.' }[k]}</span>
-                </div>)}</div>
-                <div className="countdown-ornament" aria-hidden="true"><span>✦</span></div>
+                <div className="md:col-span-2">
+                    <h3 className="accent-heading text-3xl md:text-4xl mt-3">Testigos</h3>{wedding.parents.testigos1.map(n => <p key={n} className="text-base md:text-lg mt-1">{n}</p>)}
+                    <div className="mt-8">{wedding.parents.testigos2.map(n => <p key={n} className="text-base md:text-lg mt-1">{n}</p>)}</div>
+                </div>
             </div>
             <svg className="invitation-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
                 <path className="invitation-wave-back" d="M0 45C190 5 340 95 540 63s300-58 470-24 280 49 430 6v75H0Z" />
                 <path className="invitation-wave-front" d="M0 74c190-42 330 43 530 22s315-72 485-35 280 48 425 7v52H0Z" />
             </svg>
+        
+        </section>
+       <section className="cover story-cover relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden">
+            <div className="cover-photo1" aria-hidden="true" />
+            <a href="#invitacion" aria-label="Deslizar para descubrir la invitación" className="cover-down"><ChevronDown /></a>
+            <svg className="cover-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+                <path className="cover-wave-back" d="M0 52C190 108 326 120 505 82c178-38 278-61 450-31 187 32 295 83 485 33v56H0Z" />
+                <path className="cover-wave-front" d="M0 83c192-54 338-62 515-27 170 34 271 51 444 25 186-28 309-67 481-29v88H0Z" />
+            </svg>
+        </section>
+        
+        <section data-reveal className="countdown-section py-20 px-5 text-center">
+            <div className="countdown-content">
+                <p className="uppercase tracking-[.3em] text-xs text-dusty-700">Tenemos el agrado de invitarlos a </p>
+                <h2 className="accent-heading text-5xl mt-3">Nuestra boda</h2>
+                <div className="countdown-date-row" role="group" aria-label={`Fecha de la boda: ${weekday} ${day} de ${month} de ${year}`}>
+                    <div className="date-side"><span>{weekday}</span></div>
+                    <div className="date-medallion">
+                        <span>{wedding.city}</span>
+                        <strong>{day}</strong>
+                        <small>{year}</small>
+                    </div>
+                    <div className="date-side"><span>{month}</span></div>
+                </div>
+                <div className="countdown-panel">
+                    <p className="countdown-title">La cuenta regresiva</p>
+                    <div className="countdown-grid">{Object.entries(time).map(([k, v]) => <div key={k} className="countdown-item">
+                        <strong>{String(v).padStart(2, '0')}</strong>
+                        <span>{{ d: 'Días', h: 'Horas', m: 'Min.', s: 'Seg.' }[k]}</span>
+                    </div>)}</div>
+                    <div className="countdown-ornament" aria-hidden="true"><span>✦</span></div>
+                </div>
+                <p className="countdown-quote max-w-2xl mx-auto mt-4 leading-7">{wedding.quote}</p>
+            </div>
+        
+        
+        </section>
+        
+         <section className="cover story-cover relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden">
+            <div className="cover-photo2" aria-hidden="true" />
+            <a href="#invitacion" aria-label="Deslizar para descubrir la invitación" className="cover-down"><ChevronDown /></a>
+            <svg className="cover-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+                <path className="cover-wave-back" d="M0 52C190 108 326 120 505 82c178-38 278-61 450-31 187 32 295 83 485 33v56H0Z" />
+                <path className="cover-wave-front" d="M0 83c192-54 338-62 515-27 170 34 271 51 444 25 186-28 309-67 481-29v88H0Z" />
+            </svg>
+        </section>
+
+        <section data-reveal className="bg-paper py-20 px-5 text-center">
+            <p className="uppercase tracking-[.3em] text-xs text-dusty-700">¡Nos encantará verte!</p>
+            <h2 className="accent-heading text-5xl mt-3">Detalles del evento</h2>
         </section>
         <section data-reveal className="bg-dusty-100 py-10 px-5 wave-section">
             <div className="max-w-5xl mx-auto text-center">
-                <p className="uppercase tracking-[.3em] text-xs text-dusty-700">Nos encantará verte</p>
                 <h2 className="text-4xl mt-3 mb-12">Ceremonias y recepción</h2>
                 <div className="grid md:grid-cols-2 gap-8">{[wedding.ceremony, wedding.reception].map((e, i) => <article key={e.title} className="event-card bg-ivory p-8 rounded-2xl border border-dusty-200"><MapPin className="mx-auto text-dusty-600" />
                 <h3 className="text-2xl mt-3 text-dusty-900">{e.title}</h3>
@@ -122,8 +179,11 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
                     <p>{wedding.gifts.accountHolder}</p>
                     <button className="copy-account" onClick={async () => { try { await navigator.clipboard.writeText(wedding.gifts.accountNumber); setCopied(true); setTimeout(() => setCopied(false), 2200) } catch { setCopied(false) } }}>{copied ? 'Número copiado' : 'Copiar número'}</button>
                 </div>
-                <div className="qr-frame">{wedding.gifts.qrUrl ? <img src={wedding.gifts.qrUrl} alt="Código QR de regalo" /> : <span>QR<br />
-                <small>Pendiente</small></span>}
+                <div className="yape-payment">
+                    <p className="yape-caption">Escanea para enviar un regalo</p>
+                    <div className="qr-frame yape-qr-frame">
+                        <img src="/fotos/yape-qr-dusty-blue.png" alt="Código QR de Yape de Enma Esperanza Valdiviezo Pingo" loading="lazy" decoding="async" />
+                    </div>
                 </div>
             </article></div><p className="sr-only" aria-live="polite">{copied ? 'Número de cuenta copiado' : ''}</p>
         </section>}

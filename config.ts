@@ -10,14 +10,13 @@ export const wedding = {
   itinerary: [
     {time:'6:00 p. m.',activity:'Ceremonia religiosa'},
     {time:'7:30 p. m.',activity:'Recepción social'},
-    {time:'8:00 p. m.',activity:'Ceremonia civil'},
-    {time:'9:00 p. m.',activity:'Actos protocolares'},
-    {time:'9:30 p. m.',activity:'Cena'},
+    {time:'8:00 p. m.',activity:'Actos protocolares'},
+    {time:'9:00 p. m.',activity:'Cena'},
     {time:'10:00 p. m.',activity:'Fiesta'}
   ],
-  parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos']  },
+  parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos'],  testigos1: ['Miguel Angel Neira Llanos', 'Maria Luisa Valdiviezo Pingo'],  testigos2: ['Jordy Junior Vallejos Curo', 'Denisse del Milagro Quezasa Paiva']  },
   notes: ['Amamos a sus niños y queremos que ustedes disfruten y bailen sin parar. Por ello, la invitación es solo para adultos.', 'La fiesta comenzará puntualmente. Nos encantaría que llegues a tiempo para disfrutar cada detalle con nosotros.'],
-  gifts: { enabled: true, text: 'Tu presencia y tus buenos deseos son nuestro mejor regalo. Si desean hacernos llegar algún presente estaremos muy agradecidos.', envelope: 'Lluvia de sobres', bank: 'Interbank', accountNumber: '00001922737373', accountHolder: 'Diego Estrada', qrUrl: '' },
+  gifts: { enabled: true, text: 'Tu presencia y tus buenos deseos son nuestro mejor regalo. Si desean hacernos llegar algún presente estaremos muy agradecidos.', envelope: 'Lluvia de sobres', bank: 'Interbank', accountNumber: '00247510972703604629', accountHolder: 'Enma Esperanza Valdiviezo Pingo', qrUrl: '' },
   albumUrl: '', contactUrl: '',
-  photos: ['DSC09736.jpg','DSC09778.jpg','DSC09844.jpg','foto.jpeg','DSC09914.jpg','DSC09937.jpg','DSC09897.jpg','foto2.jpeg', 'foto3.jpeg' ]
+  photos: ['DSC09736.jpg','DSC09778.jpg','DSC09844.jpg','foto.jpeg','DSC09914.jpg','DSC09937.jpg'  ]
 } as const;
