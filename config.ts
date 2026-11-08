@@ -4,9 +4,9 @@ export const wedding = {
   welcome: 'Con la bendicion de Dios y nuestros padres.',
   quote: '“El amor no se mira, se siente, y aún más cuando está junto a ti.”',
   ceremony: { title: 'Ceremonia Religiosa', time: '6:00 p. m.', venue: 'Basílica Catedral San Miguel Arcángel', address: 'Piura, Perú', mapsUrl: mapSearch('Basílica Catedral San Miguel Arcángel, Piura, Perú') },
-  reception: { title: 'Ceremonia Civil y Recepción', time: '7:30 p. m.', venue: 'Fundo Carlos', address: 'Piura, Perú', mapsUrl: mapSearch('Fundo Carlos, Piura, Perú') },
+  reception: { title: 'Recepción', time: '7:30 p. m.', venue: 'Fundo el Madrigal', address: 'Piura, Perú', mapsUrl: mapSearch('El Madrigal, Piura, Perú') },
   calendarStart: '2026-12-04T18:00:00-05:00', calendarEnd: '2026-12-05T01:00:00-05:00',
-  attire: 'Formal', attireNote: 'El blanco está reservado para la novia.',
+  attire: 'Elegante', attireNote: 'El blanco está reservado para la novia.',
   itinerary: [
     {time:'6:00 p. m.',activity:'Ceremonia religiosa'},
     {time:'7:30 p. m.',activity:'Recepción social'},
@@ -15,8 +15,8 @@ export const wedding = {
     {time:'10:00 p. m.',activity:'Fiesta'}
   ],
   parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos'],  testigos1: ['Miguel Angel Neira Llanos', 'Maria Luisa Valdiviezo Pingo'],  testigos2: ['Jordy Junior Vallejos Curo', 'Denisse del Milagro Quezasa Paiva']  },
-  notes: ['Amamos a sus niños y queremos que ustedes disfruten y bailen sin parar. Por ello, la invitación es solo para adultos.', 'La fiesta comenzará puntualmente. Nos encantaría que llegues a tiempo para disfrutar cada detalle con nosotros.'],
-  gifts: { enabled: true, text: 'Tu presencia y tus buenos deseos son nuestro mejor regalo. Si desean hacernos llegar algún presente estaremos muy agradecidos.', envelope: 'Lluvia de sobres', bank: 'Interbank', accountNumber: '00247510972703604629', accountHolder: 'Enma Esperanza Valdiviezo Pingo', qrUrl: '' },
+  notes: ['Amamos a sus niños y queremos que ustedes disfruten y bailen sin parar. Por ello, la invitación es solo para adultos.'],
+  gifts: { enabled: true, text: 'Tu compañía es el regalo más especial; si deseas obsequiarnos algo más, hemos dispuesto este espacio para ti.', envelope: 'Lluvia de sobres', bank: 'BCP', accountNumber: '00247510972703604629', accountHolder: 'Enma Esperanza Valdiviezo Pingo', qrUrl: '' },
   albumUrl: '', contactUrl: '',
-  photos: ['DSC09736.jpg','DSC09778.jpg','DSC09844.jpg','foto.jpeg','DSC09914.jpg','DSC09937.jpg'  ]
+  photos: ['DSC09736.jpg','DSC09778.jpg','FOTO7.jpeg','foto.jpeg','FOTO6.jpeg' ,'FOTO8.jpeg'  ]
 } as const;
