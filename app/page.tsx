@@ -211,7 +211,7 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
             <p className="max-w-2xl mx-auto mt-4 leading-7">{wedding.notes[0]}</p>
             <div className="mx-auto my-7 h-px max-w-xs bg-dusty-200" /><p className="max-w-2xl mx-auto leading-7">{wedding.notes[1]}</p></section>
         <section data-reveal className="couple-photo-section couple-photo-section--closing" aria-label="Fotografía de Diego y Enma">
-            <div className="couple-photo-background2" role="img" aria-label="Diego y Enma tomados de la mano entre la vegetación" />
+            <div className="couple-photo-background3" role="img" aria-label="Diego y Enma tomados de la mano entre la vegetación" />
             <PhotoSectionWaves />
         </section>
         <section data-reveal className="couple-caption-section" aria-label="Mensaje de los novios">

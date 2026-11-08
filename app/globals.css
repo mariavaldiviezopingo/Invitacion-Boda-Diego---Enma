@@ -39,8 +39,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-
 
 main { width: 100%; overflow: clip; }
 .cover { position: relative; isolation: isolate; min-height: 100svh; padding: 0; color: #fff; background: #17252e; }
-.cover-photo { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg,rgba(7,18,25,.18),rgba(7,18,25,.1) 42%,rgba(7,18,25,.38)),url('/fotos/portada-pareja.jpeg') 54% center/cover no-repeat; transform: scale(1.005); }
-.cover-content { position: absolute; inset: auto 0 clamp(5rem, 16vh, 10rem); display: flex; width: min(100%, 1100px); flex-direction: column; align-items: center; margin-inline: auto; padding-inline: var(--page-gutter); text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+.cover-photo { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg,rgba(7,18,25,.18),rgba(7,18,25,.1) 42%,rgba(7,18,25,.38)),url('/fotos/portada-pareja.jpeg') center center/cover no-repeat; transform: scale(1.005); }
+.cover-content { position: absolute; inset: auto 0 clamp(5rem, 16vh, 10rem); display: flex; width: min(100%, 1100px); flex-direction: column; align-items: center; margin-inline: auto; padding-inline: var(--page-gutter); text-align: center; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
 .cover-quote { max-width: 58rem; margin: 0 auto .6rem; padding-block: .25rem!important; color: #fff; font: italic 400 clamp(1rem,2.1vw,1.55rem)/1.3 'Cormorant Garamond',serif; text-wrap: balance; }
 .cover-scripture { margin: 0 0 clamp(1rem,2.5vh,1.8rem); color: #fff; font-size: clamp(.62rem,1.2vw,.82rem); font-weight: 600; letter-spacing: .28em; }
 .story-cover .cover-names { margin: 0; color: #fff; font: 400 clamp(4rem,11vw,8.7rem)/.92 'Alex Brush',cursive; text-wrap: balance; }
@@ -61,10 +61,12 @@ main { width: 100%; overflow: clip; }
 .invitation-section > .max-w-3xl { width: min(100%, 880px); }
 .invitation-section .accent-heading { color: var(--dusty-dark); }
 .couple-photo-section { position: relative; isolation: isolate; height: clamp(300px, 56vw, 720px); min-height: 300px; overflow: hidden; background: var(--dusty-pale); }
-.couple-photo-background { position: absolute; inset: 0; background: url('/fotos/pareja-juntos.jpeg') center 45%/cover no-repeat; }
-.couple-photo-background2 { position: absolute; inset: 0; background: url('/fotos/foto4.jpg') center 45%/cover no-repeat; }
+.couple-photo-background, .couple-photo-background2, .couple-photo-background3 { position: absolute; inset: 0; background-position: center 45%; background-size: cover; background-repeat: no-repeat; }
+.couple-photo-background { background-image: url('/fotos/pareja-juntos.jpeg'); }
+.couple-photo-background2 { background-image: url('/fotos/foto4.jpg'); }
+.couple-photo-background3 { background-image: url('/fotos/foto10.jpg'); }
 .couple-photo-section--closing { height: clamp(280px,48vw,620px); }
-.couple-photo-section--closing .couple-photo-background2 { background-position: center 42%; }
+.couple-photo-section--closing .couple-photo-background3 { background-position: center 45%; }
 .couple-caption-section { position: relative; padding: clamp(2rem,5vw,3.5rem) var(--page-gutter); color: var(--dusty-dark); background: var(--dusty-pale); text-align: center; }
 .couple-caption-section p { width: min(100%,680px); margin: 0 auto; font: italic 400 clamp(1.2rem,2.7vw,1.8rem)/1.5 'Cormorant Garamond',serif; text-wrap: balance; }
 .couple-caption-section span { display: block; width: fit-content; margin: .8rem auto 0; color: #667e90; font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; }
@@ -171,10 +173,13 @@ main { width: 100%; overflow: clip; }
 .music-toggle { position: fixed; z-index: 40; right: clamp(12px,3vw,28px); bottom: clamp(12px,3vw,26px); display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px; border: 1px solid rgba(255,255,255,.75); border-radius: 999px; color: #fff; background: var(--dusty-dark); box-shadow: 0 5px 18px rgba(30,45,57,.2); font-size: .78rem; cursor: pointer; }
 
 @media (max-width: 760px) {
+  /* La pareja está ligeramente a la izquierda del centro en la foto original. */
+  .cover-photo { background-position: 40% center; }
   .cover-content { inset-block-end: clamp(4.5rem,12vh,7rem); }
   .cover-quote { max-width: 38ch; }
+  .story-cover .cover-names { max-width: 100%; font-size: clamp(3.6rem,12vw,5.8rem); }
   .couple-photo-background { background-position: 52% center; }
-  .couple-photo-section--closing .couple-photo-background2 { background-position: 54% center; }
+  .couple-photo-section--closing .couple-photo-background3 { background-position: center 45%; }
   .photo-collage { grid-template-columns: repeat(2,minmax(0,1fr)); grid-auto-rows: clamp(32px,8vw,48px); gap: 10px; }
   .photo-card { grid-column: span 1; grid-row: span 6; }
   .photo-card:nth-child(4n+1) { grid-row: span 7; }
@@ -185,9 +190,11 @@ main { width: 100%; overflow: clip; }
 }
 @media (max-width: 520px) {
   .cover { min-height: 100svh; }
+  .cover-photo { background-position: 40% center; }
   .cover-content { inset-block-end: 5.25rem; }
+  .cover-quote { width: 100%; max-width: 36ch; padding-block: .25rem!important; line-height: 1.25; }
   .cover-scripture { letter-spacing: .2em; }
-  .story-cover .cover-names { font-size: clamp(3.6rem,15vw,5.8rem); }
+  .story-cover .cover-names { width: 100%; font-size: clamp(3.3rem,13.5vw,5.2rem); }
   .cover-married { font-size: clamp(2.7rem,11vw,3.8rem); }
   .section-divider { height: 34px; }
   .date-message-band { min-height: 0; }
