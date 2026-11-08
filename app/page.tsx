@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { wedding } from '@/config';
-import { ChevronDown, MapPin, Heart, CalendarDays, Camera, Gift, ArrowLeft, ArrowRight, X, Clock, Users } from 'lucide-react';
+import { ChevronDown, MapPin, Heart, CalendarDays, Camera, Gift, ArrowLeft, ArrowRight, X, Clock, Users, Music2, VolumeX } from 'lucide-react';
 
 type Guest = { name: string; passes: number };
 function SectionDivider({ from, to }: { from: string; to: string }) {
@@ -17,7 +17,26 @@ function PhotoSectionWaves() {
     </>;
 }
 export default function Home({ guest }: { guest?: Guest } = {}) {
-    const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 }), [active, setActive] = useState<number | null>(null), [response, setResponse] = useState(''), [copied, setCopied] = useState(false);
+    const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 }), [active, setActive] = useState<number | null>(null), [response, setResponse] = useState(''), [copied, setCopied] = useState(false), [musicPlaying, setMusicPlaying] = useState(false);
+    const audioRef = useRef<HTMLAudioElement>(null);
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const play = () => { void audio.play().then(() => setMusicPlaying(true)).catch(() => setMusicPlaying(false)); };
+        const startAfterGesture = (event: Event) => {
+            if ((event.target as Element | null)?.closest?.('.music-toggle')) return;
+            window.removeEventListener('pointerdown', startAfterGesture);
+            window.removeEventListener('keydown', startAfterGesture);
+            play();
+        };
+        play();
+        window.addEventListener('pointerdown', startAfterGesture);
+        window.addEventListener('keydown', startAfterGesture);
+        return () => {
+            window.removeEventListener('pointerdown', startAfterGesture);
+            window.removeEventListener('keydown', startAfterGesture);
+        };
+    }, []);
     useEffect(() => { const tick = () => { const ms = new Date(wedding.date + 'T18:00:00-05:00').getTime() - Date.now(), n = Math.max(0, ms); setTime({ d: Math.floor(n / 86400000), h: Math.floor(n / 3600000) % 24, m: Math.floor(n / 60000) % 60, s: Math.floor(n / 1000) % 60 }) }; tick(); const id = setInterval(tick, 1000); return () => clearInterval(id) }, []);
     useEffect(() => {
         const items = document.querySelectorAll<HTMLElement>('[data-reveal], [data-photo]');
@@ -34,9 +53,22 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
         return () => observer.disconnect();
     }, []);
     const calendar = () => { const url = new URL('https://calendar.google.com/calendar/render'); url.searchParams.set('action', 'TEMPLATE'); url.searchParams.set('text', `${wedding.names.join(' & ')} · Nuestra boda`); url.searchParams.set('dates', `${wedding.calendarStart.replace(/[-:]/g, '').slice(0, 15)}/${wedding.calendarEnd.replace(/[-:]/g, '').slice(0, 15)}`); url.searchParams.set('details', `${wedding.ceremony.title}: ${wedding.ceremony.venue}. ${wedding.reception.title}: ${wedding.reception.venue}.`); window.open(url.toString(), '_blank', 'noopener') };
+    const toggleMusic = async () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        if (audio.paused) {
+            try { await audio.play(); setMusicPlaying(true); }
+            catch { setMusicPlaying(false); }
+        } else { audio.pause(); setMusicPlaying(false); }
+    };
     async function rsvp(answer: 'yes' | 'no') { const token = location.pathname.split('/').pop(); if (!token || token === '') return; try { const r = await fetch('/api/rsvp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, answer }) }); const j = await r.json(); setResponse(r.ok ? (answer === 'yes' ? '¡Gracias por confirmar!' : 'Gracias por avisarnos.') : (j.error || 'No pudimos guardar tu respuesta.')) } catch { setResponse('No pudimos guardar tu respuesta.') } }
     const eventDate = new Date(`${wedding.date}T12:00:00-05:00`), weekday = eventDate.toLocaleDateString('es-PE', { weekday: 'long' }), day = eventDate.toLocaleDateString('es-PE', { day: '2-digit' }), month = eventDate.toLocaleDateString('es-PE', { month: 'long' }), year = eventDate.getFullYear();
     return <main>
+        <audio ref={audioRef} src="/fotos/por-eso-te-amo.mp3" loop preload="auto" />
+        <button type="button" className="music-toggle" onClick={toggleMusic} aria-label={musicPlaying ? 'Pausar música' : 'Reproducir música'}>
+            {musicPlaying ? <VolumeX size={17} aria-hidden="true" /> : <Music2 size={17} aria-hidden="true" />}
+            <span>{musicPlaying ? 'Pausar música' : 'Activar música'}</span>
+        </button>
 
         <section className="cover story-cover relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden">
             <div className="cover-photo" aria-hidden="true" />
