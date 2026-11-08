@@ -1,7 +1,7 @@
 const mapSearch=(query:string)=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 export const wedding = {
   names: ['Enma', 'Diego'], initials: 'E & D', date: '2026-12-04', timezone: 'America/Bogota', city: 'Piura',
-  welcome: 'Con mucha alegría queremos compartir contigo el comienzo de esta nueva historia.',
+  welcome: 'Con la bendicion de Dios y nuestros padres.',
   quote: '“El amor no se mira, se siente, y aún más cuando está junto a ti.”',
   ceremony: { title: 'Ceremonia Religiosa', time: '6:00 p. m.', venue: 'Basílica Catedral San Miguel Arcángel', address: 'Piura, Perú', mapsUrl: mapSearch('Basílica Catedral San Miguel Arcángel, Piura, Perú') },
   reception: { title: 'Ceremonia Civil y Recepción', time: '7:30 p. m.', venue: 'Fundo Carlos', address: 'Piura, Perú', mapsUrl: mapSearch('Fundo Carlos, Piura, Perú') },
@@ -15,7 +15,7 @@ export const wedding = {
     {time:'9:30 p. m.',activity:'Cena'},
     {time:'10:00 p. m.',activity:'Fiesta'}
   ],
-  parents: { groom: ['Diego Estrada', 'Daniela Fernandez'], bride: ['Luis Ambrosio Valdiviezo', 'Nery Pingo'] },
+  parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos']  },
   notes: ['Amamos a sus niños y queremos que ustedes disfruten y bailen sin parar. Por ello, la invitación es solo para adultos.', 'La fiesta comenzará puntualmente. Nos encantaría que llegues a tiempo para disfrutar cada detalle con nosotros.'],
   gifts: { enabled: true, text: 'Tu presencia y tus buenos deseos son nuestro mejor regalo. Si desean hacernos llegar algún presente estaremos muy agradecidos.', envelope: 'Lluvia de sobres', bank: 'Interbank', accountNumber: '00001922737373', accountHolder: 'Diego Estrada', qrUrl: '' },
   albumUrl: '', contactUrl: '',
