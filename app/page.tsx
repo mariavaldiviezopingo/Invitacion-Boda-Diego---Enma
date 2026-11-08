@@ -210,10 +210,19 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
             <Users className="mx-auto text-dusty-600" />
             <p className="max-w-2xl mx-auto mt-4 leading-7">{wedding.notes[0]}</p>
             <div className="mx-auto my-7 h-px max-w-xs bg-dusty-200" /><p className="max-w-2xl mx-auto leading-7">{wedding.notes[1]}</p></section>
+        <section data-reveal className="couple-photo-section couple-photo-section--closing" aria-label="Fotografía de Diego y Enma">
+            <div className="couple-photo-background2" role="img" aria-label="Diego y Enma tomados de la mano entre la vegetación" />
+            <PhotoSectionWaves />
+        </section>
+        <section data-reveal className="couple-caption-section" aria-label="Mensaje de los novios">
+            <p>“Con mucha alegría deseamos celebrar este día tan especial junto a quienes han sido parte de nuestro camino. Nos encantaría contar contigo.”</p>
+            <span>¡Te esperamos!</span>
+        </section>
+
         {wedding.albumUrl
-            ? <><SectionDivider from="#edf2f5" to="#f8f8f6" /><section data-reveal className="album-section py-14 text-center"><Camera className="mx-auto text-dusty-600" /><a href={wedding.albumUrl} className="underline mt-3 inline-block">Compartir fotografías</a></section><SectionDivider from="#f8f8f6" to="#3f5d73" /></>
+            ? <><SectionDivider from="#edf2f5" to="#f8f8f6" /><section data-reveal className="album-section text-center"><Camera className="mx-auto text-dusty-600" /><a href={wedding.albumUrl} className="underline inline-block">Compartir fotografías</a></section><SectionDivider from="#f8f8f6" to="#3f5d73" /></>
             : <SectionDivider from="#edf2f5" to="#3f5d73" />}
         <footer className="site-footer">Con cariño, {wedding.names.join(' & ')} · {wedding.date.slice(0, 4)} {wedding.contactUrl && <a href={wedding.contactUrl} className="underline ml-2">Contacto</a>}</footer>
-        {active !== null && <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={() => setActive(null)}><button aria-label="Cerrar" className="absolute right-5 top-5 text-white"><X /></button><button aria-label="Anterior" className="absolute left-4 text-white" onClick={e => { e.stopPropagation(); setActive((active + wedding.photos.length - 1) % wedding.photos.length) }}><ArrowLeft /></button><img src={'/fotos/' + wedding.photos[active]} className="max-w-[85vw] max-h-[88vh] object-contain" /><button aria-label="Siguiente" className="absolute right-4 text-white" onClick={e => { e.stopPropagation(); setActive((active + 1) % wedding.photos.length) }}><ArrowRight /></button></div>}
+        {active !== null && <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={() => setActive(null)}><button aria-label="Cerrar" className="absolute right-5  text-white"><X /></button><button aria-label="Anterior" className="absolute left-4 text-white" onClick={e => { e.stopPropagation(); setActive((active + wedding.photos.length - 1) % wedding.photos.length) }}><ArrowLeft /></button><img src={'/fotos/' + wedding.photos[active]} className="max-w-[85vw] max-h-[88vh] object-contain" /><button aria-label="Siguiente" className="absolute right-4 text-white" onClick={e => { e.stopPropagation(); setActive((active + 1) % wedding.photos.length) }}><ArrowRight /></button></div>}
     </main>
 }
