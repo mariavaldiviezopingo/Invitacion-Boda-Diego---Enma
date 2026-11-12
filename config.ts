@@ -14,7 +14,7 @@ export const wedding = {
     {time:'9:00 p. m.',activity:'Cena'},
     {time:'10:00 p. m.',activity:'Fiesta'}
   ],
-  parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos'],  testigos1: ['Miguel Angel Neira Llanos', 'Maria Luisa Valdiviezo Pingo'],  testigos2: ['Jordy Junior Vallejos Curo', 'Denisse del Milagro Quezasa Paiva']  },
+  parents: { groom: ['José Guillermo Estrada Herrera', 'Jeovana Jaqueline Neira Llanos'], bride: ['Luis Ambrocio Valdiviezo Flores', 'Nery Alejandrina Pingo Adrianzen'], padrinos: ['Luis Ambrocio Valdiviezo Flores', 'Jeovana Jaqueline Neira Llanos'],  testigos1: ['Miguel Angel Neira Llanos', 'Maria Luisa Valdiviezo Pingo'],  testigos2: ['Jordy Junior Vallejos Curo', 'Denisse del Milagro Quezada Paiva']  },
   notes: ['Amamos a sus niños y queremos que ustedes disfruten y bailen sin parar. Por ello, la invitación es solo para adultos.'],
   gifts: { enabled: true, text: 'Tu compañía es el regalo más especial; si deseas obsequiarnos algo más, hemos dispuesto este espacio para ti.', envelope: 'Lluvia de sobres', bank: 'BCP', accountNumber: '00247510972703604629', accountHolder: 'Enma Esperanza Valdiviezo Pingo', qrUrl: '' },
   albumUrl: '', contactUrl: '',

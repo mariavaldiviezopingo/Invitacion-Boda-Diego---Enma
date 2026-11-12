@@ -223,9 +223,11 @@ export default function Home({ guest }: { guest?: Guest } = {}) {
                 <div>
                     <p className="text-sm uppercase tracking-wider text-gold-700">Cuenta bancaria</p>
                     <p className="mt-2">BCP</p>
-                    <strong>{wedding.gifts.accountNumber}</strong>
+                    <strong className="text-sm mt-1 text-dusty-700">Número de cuenta: 47509727036046</strong>
+                    <strong>CCI: {wedding.gifts.accountNumber}</strong>
                     <p>{wedding.gifts.accountHolder}</p>
-                    <button className="copy-account" onClick={async () => { try { await navigator.clipboard.writeText(wedding.gifts.accountNumber); setCopied(true); setTimeout(() => setCopied(false), 2200) } catch { setCopied(false) } }}>{copied ? 'Número copiado' : 'Copiar número'}</button>
+
+                    <button className="copy-account" onClick={async () => { try { await navigator.clipboard.writeText('968190297'); setCopied(true); setTimeout(() => setCopied(false), 2200) } catch { setCopied(false) } }}>{copied ? 'Número copiado' : 'Copiar número'}</button>
                 </div>
                 <div className="yape-payment">
                     <p className="yape-caption">Escanea para enviar un regalo</p>
